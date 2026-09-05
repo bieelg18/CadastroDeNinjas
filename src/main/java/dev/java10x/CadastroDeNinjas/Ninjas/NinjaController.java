@@ -22,9 +22,9 @@ public class NinjaController {
     }
 
     //Listar ninjas por id
-    @GetMapping("/id")
-    public String ninjasPorID(){
-        return "Retornando ninjas por id";
+    @GetMapping("/listar/{id}")
+    public NinjaModel ninjasPorID(@PathVariable Long id){
+        return ninjaService.listarPorId(id);
     }
 
     //Alterar dados dos ninjas
@@ -34,7 +34,7 @@ public class NinjaController {
     }
 
     //Listar ninjas
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public List<NinjaModel> listarNinjas(){
         return ninjaService.listarNinjas();
     }

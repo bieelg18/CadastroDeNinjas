@@ -22,7 +22,7 @@ public class NinjaController {
     }
 
     //Listar ninjas por id
-    @GetMapping("/listar/{id}")
+    @GetMapping("/listar/{ìd}")
     public NinjaModel ninjasPorID(@PathVariable Long id){
         return ninjaService.listarPorId(id);
     }

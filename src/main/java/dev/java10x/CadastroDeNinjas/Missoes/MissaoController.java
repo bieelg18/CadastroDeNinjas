@@ -22,15 +22,15 @@ public class MissaoController {
     }
 
     //Listar Missões
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public List<MissaoModel> missoes(){
         return missaoService.missoes();
     }
 
     //Listar Missões por id
-    @GetMapping("/id")
-    public String listarMissoesID(){
-        return "Lista de missões por ID";
+    @GetMapping("/listar/{id}")
+    public MissaoModel listarMissoesID(@PathVariable Long id){
+        return missaoService.missoesId(id);
     }
 
     //Atualizar Missões

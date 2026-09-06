@@ -1,6 +1,5 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
-import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +20,10 @@ public class MissaoService {
     public MissaoModel missoesId(Long id){
         Optional<MissaoModel> missaoModel = missaoRepository.findById(id);
         return missaoModel.orElse(null);
+    }
+
+    public MissaoModel criarMissao(MissaoModel missao){
+        return missaoRepository.save(missao);
     }
 
 }

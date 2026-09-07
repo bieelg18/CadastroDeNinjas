@@ -4,30 +4,55 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MissaoService {
     private MissaoRepository missaoRepository;
+    private MissaoMapper missaoMapper;
 
-    public MissaoService(MissaoRepository missaoRepository) {
+    public MissaoService(MissaoRepository missaoRepository, MissaoMapper missaoMapper) {
         this.missaoRepository = missaoRepository;
+        this.missaoMapper = missaoMapper;
     }
 
-    public List<MissaoModel> missoes(){
-        return missaoRepository.findAll();
+    public List<MissaoDTO> missoes(){
+        List<MissaoModel> missoes = missaoRepository.findAll();
+        return missoes.stream()
+                .map(missaoMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public MissaoModel missoesId(Long id){
-        Optional<MissaoModel> missaoModel = missaoRepository.findById(id);
-        return missaoModel.orElse(null);
+    public MissaoDTO missoesId(Long id){
+        Optional<MissaoModel> missoes = missaoRepository.findById(id);
+        return missoes.map(missaoMapper::map).orElse(null);
     }
 
-    public MissaoModel criarMissao(MissaoModel missao){
-        return missaoRepository.save(missao);
+    public MissaoDTO criarMissao(MissaoDTO missaoDTO){
+        MissaoModel missao = new MissaoMapper().map(missaoDTO);
+        missao = missaoRepository.save(missao);
+        return missaoMapper.map(missao);
     }
 
     public void deletarMissao(Long id){
         missaoRepository.deleteById(id);
+    }
+
+    public MissaoDTO atualizarMissao(Long id, MissaoDTO missaoDTO){
+        Optional<MissaoModel> missaoExistente = missaoRepository.findById(id);
+        if (missaoExistente.isPresent()){
+            MissaoModel missao = missaoExistente.get();
+
+            if (missaoDTO.getMissao() != null){
+                missao.setMissao(missaoDTO.getMissao());
+            }
+            if (missaoDTO.getDificuldade() != null){
+                missao.setDificuldade(missaoDTO.getDificuldade());
+            }
+            MissaoModel missaoSalva = missaoRepository.save(missao);
+            return missaoMapper.map(missaoSalva);
+        }
+        return null;
     }
 
 }

@@ -51,17 +51,6 @@ public class NinjaService {
         ninjaRepository.deleteById(id);
     }
 
-    //Atualizar todos os dados de um ninja já cadastrado
-    public NinjaDTO atualizarNinjaCompleto(Long id, NinjaDTO ninja) {
-        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
-        if (ninjaExistente.isPresent()){
-            NinjaModel ninjaAtualizado = ninjaMapper.map(ninja);
-            ninjaAtualizado.setId(id);
-            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
-            return ninjaMapper.map(ninjaSalvo);
-        }
-        return null;
-    }
 
     //Alterar apenas os dados enviados na requisição
     public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO){

@@ -23,20 +23,20 @@ public class MissaoController {
 
     //Listar Missões
     @GetMapping("/listar")
-    public List<MissaoModel> missoes(){
+    public List<MissaoDTO> missoes(){
         return missaoService.missoes();
     }
 
     //Listar Missões por id
     @GetMapping("/listar/{id}")
-    public MissaoModel listarMissoesID(@PathVariable Long id){
+    public MissaoDTO listarMissoesID(@PathVariable Long id){
         return missaoService.missoesId(id);
     }
 
     //Atualizar Missões
-    @PutMapping("/atualizar")
-    public String atualizarMissao(){
-        return "Atualizar missão";
+    @PatchMapping("/atualizar/{id}")
+    public MissaoDTO atualizarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoDTO){
+        return missaoService.atualizarMissao(id, missaoDTO);
     }
 
     //Deletar Missões

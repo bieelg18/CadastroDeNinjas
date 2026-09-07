@@ -23,9 +23,10 @@ public class NinjaModel {
     @Column(unique = true)
     private String email;
 
+    private String rankNinja;
+
     //Vários ninjas podem ter apenas uma missão
     @ManyToOne
     @JoinColumn(name = "missoes_id")
     private MissaoModel missao;
-
 }

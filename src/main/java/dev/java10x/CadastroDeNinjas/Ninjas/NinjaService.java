@@ -32,7 +32,7 @@ public class NinjaService {
     public NinjaModel buscarPorEmail(String email){
         return ninjaRepository.findByEmail(email)
                 .orElse(null);
-    }git s
+    }
 
     //Criar um novo ninja
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO){

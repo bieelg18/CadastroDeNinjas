@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
